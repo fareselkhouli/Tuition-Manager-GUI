@@ -5,6 +5,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.RadioButton;
+import sample.project2.*;
 
 
 public class Controller {
