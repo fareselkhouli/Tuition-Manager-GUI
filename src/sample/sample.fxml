@@ -64,12 +64,12 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <RadioButton fx:id="insRdio" mnemonicParsing="false" text="INSTATE">
+            <RadioButton fx:id="insRdio" mnemonicParsing="false" onMouseClicked="#radioGroupPress" text="INSTATE">
                <toggleGroup>
                   <ToggleGroup fx:id="studentStatus" />
                </toggleGroup></RadioButton>
-            <RadioButton fx:id="outRdio" mnemonicParsing="false" text="OUTSTATE" toggleGroup="$studentStatus" GridPane.rowIndex="1" />
-            <RadioButton fx:id="intRdio" mnemonicParsing="false" text="INTERNATIONAL" toggleGroup="$studentStatus" GridPane.rowIndex="2" />
+            <RadioButton fx:id="outRdio" mnemonicParsing="false" onMouseClicked="#radioGroupPress" text="OUTSTATE" toggleGroup="$studentStatus" GridPane.rowIndex="1" />
+            <RadioButton fx:id="intRdio" mnemonicParsing="false" onMouseClicked="#radioGroupPress" text="INTERNATIONAL" toggleGroup="$studentStatus" GridPane.rowIndex="2" />
             <CheckBox fx:id="fndCheck" disable="true" mnemonicParsing="false" text="Funding" GridPane.columnIndex="1" />
             <CheckBox fx:id="triStateCheck" disable="true" mnemonicParsing="false" text="Tri-State Student" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <CheckBox fx:id="exchCheck" disable="true" mnemonicParsing="false" text="Exchange Student" GridPane.columnIndex="1" GridPane.rowIndex="2" />
