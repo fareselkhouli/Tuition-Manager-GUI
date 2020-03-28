@@ -59,38 +59,111 @@ public class Controller {
     }
 
     @FXML
-    public void addBtnClicked(){
+    public void addBtnClicked() throws IllegalArgumentException{
+
+        if(firstNameField.getText().isEmpty() || lastNameField.getText().isEmpty() || creditsField.getText() == null){
+            outputArea.appendText("Incomplete Input." + "\n");
+            return;
+        }
+
         String fname = firstNameField.getText();
         String lname = lastNameField.getText();
-        int credits = Integer.parseInt(creditsField.getText());
+        int credits;
+        int partTimeCredits = 12;
+        String successMessage = "Student successfully added! \n";
 
-        if(insRdio.isSelected()){
-            if(fndCheck.isSelected()){
-                int funding = Integer.parseInt(fundingField.getText());
-                cs213.add(new Instate(fname,lname,credits,funding));
-            }
-            else{
-                cs213.add(new Instate(fname,lname,credits,0));
-            }
+        try {
+           credits = Integer.parseInt(creditsField.getText());
+        }
+        catch(IllegalArgumentException ex){
+            outputArea.appendText("Credits must be a number" + "\n");
+            return;
         }
 
-        if(outRdio.isSelected()){
-            if(triStateCheck.isSelected()){
-                cs213.add(new Outstate(fname,lname,credits,true));
-            }
-            else{
-                cs213.add(new Outstate(fname,lname,credits,false));
-            }
+        if(credits <= 0){
+            outputArea.appendText("Credits must be more than zero." + "\n");
+            return;
         }
 
-        if(intRdio.isSelected()){
-            if(exchCheck.isSelected()) {
-                cs213.add(new International(fname, lname, credits, true));
+            if (insRdio.isSelected()) {
+                if (fndCheck.isSelected()) {
+                    int funding;
+                    try {
+                        funding = Integer.parseInt(fundingField.getText());
+                    }
+                    catch(IllegalArgumentException ex){
+                        outputArea.appendText("Funding must be a number" + "\n");
+                        return;
+                    }
+                    if(funding < 0){
+                        outputArea.appendText("Funding must be positive." + "\n");
+                        return;
+                    }
+                    if(credits < partTimeCredits){
+                        outputArea.appendText("Part-time students are not elgible for funding. Try again." + "\n");
+                        return;
+                    }
+                    Instate st = new Instate(fname, lname, credits, funding);
+                    if(cs213.contains(st)){
+                        outputArea.appendText("Student is already in the list" + "\n");
+                        return;
+                    }
+                    cs213.add(st);
+                } else {
+                    Instate st = new Instate(fname, lname, credits, 0);
+                    if(cs213.contains(st)){
+                        outputArea.appendText("Student is already in the list" + "\n");
+                        return;
+                    }
+                    cs213.add(st);
+                }
+                outputArea.appendText(successMessage);
+                return;
             }
-            else{
-                cs213.add(new International(fname, lname, credits, false));
+
+            if (outRdio.isSelected()) {
+                if (triStateCheck.isSelected()) {
+                    Outstate st = new Outstate(fname, lname, credits, true);
+                    if(cs213.contains(st)){
+                        outputArea.appendText("Student is already in the list" + "\n");
+                        return;
+                    }
+                    cs213.add(st);
+                } else {
+                    Outstate st = new Outstate(fname, lname, credits, false);
+                    if(cs213.contains(st)){
+                        outputArea.appendText("Student is already in the list" + "\n");
+                        return;
+                    }
+                    cs213.add(st);
+                }
+                outputArea.appendText(successMessage);
+                return;
             }
-        }
+
+            if (intRdio.isSelected()) {
+                if (credits < 9){
+                    outputArea.appendText("International Students must have 9 credits or more." + "\n");
+                    return;
+                }
+                if (exchCheck.isSelected()) {
+                    International st = new International(fname, lname, credits, true);
+                    if(cs213.contains(st)){
+                        outputArea.appendText("Student is already in the list" + "\n");
+                        return;
+                    }
+                    cs213.add(st);
+                } else {
+                    International st = new International(fname, lname, credits, false);
+                    if(cs213.contains(st)){
+                        outputArea.appendText("Student is already in the list" + "\n");
+                        return;
+                    }
+                    cs213.add(st);
+                }
+                outputArea.appendText(successMessage);
+            }
+
 
     }
 
