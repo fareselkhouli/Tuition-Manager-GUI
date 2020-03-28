@@ -70,6 +70,7 @@ public class Controller {
         String lname = lastNameField.getText();
         int credits;
         int partTimeCredits = 12;
+        int internationalRequirement = 9;
         String successMessage = "Student successfully added! \n";
 
         try {
@@ -142,7 +143,7 @@ public class Controller {
             }
 
             if (intRdio.isSelected()) {
-                if (credits < 9){
+                if (credits < internationalRequirement){
                     outputArea.appendText("International Students must have 9 credits or more." + "\n");
                     return;
                 }
@@ -162,9 +163,9 @@ public class Controller {
                     cs213.add(st);
                 }
                 outputArea.appendText(successMessage);
+                return;
             }
-
-
+            outputArea.appendText("Please choose a radio button and try again." + "\n");
     }
 
     @FXML
