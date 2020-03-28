@@ -1,5 +1,11 @@
 package sample;
 
+/**
+ * This controller handles the input/output processes for the Tuition Manager GUI
+ * @FaresElkhouli
+ * @ZhiyuFeng
+ */
+
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
@@ -36,6 +42,9 @@ public class Controller {
 
     public StudentList cs213 = new StudentList();
 
+    /**
+     * Disables wrong fields and enables right fields for the radio toggle group
+     */
     @FXML
     public void radioGroupPress(){
         if(insRdio.isSelected()){
@@ -58,6 +67,10 @@ public class Controller {
         }
     }
 
+    /**
+     * Adds a student to the Student list. Handles several error cases.
+     * @throws IllegalArgumentException
+     */
     @FXML
     public void addBtnClicked() throws IllegalArgumentException{
 
