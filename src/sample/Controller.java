@@ -195,15 +195,8 @@ public class Controller {
     	String fname = firstNameField.getText();
     	String lname = lastNameField.getText();
     	int credits;
-    	int partTimeCredits = 12;
-    	int internationalRequirement = 9;
     	String successMessage = "Student successfully removed!\n";
-    	
-    	if(credits <= 0) {
-    		outputArea.appendText("Credits must be more than zero."+"\n");
-    		return;
-    	}
-    	
+
     	if(insRdio.isSelected()) {
     		if(fndCheck.isSelected()) {
     			int funding;
@@ -216,7 +209,7 @@ public class Controller {
     		if (funding!=0) {
     		Instate st = new Instate(fname,lname,credits,funding);
     		if(cs213.contains(st)) {
-    			cs213.remove(st);
+    			cs213.remove();
     		}else{
     			outputArea.appendText("The student is not in the list"+"\n");
     			return;
@@ -224,7 +217,7 @@ public class Controller {
     		}else {
     			Instate st = new Instate(fname,lname,credits,0);
     			if(cs213.contains(st)) {
-    				cs213.remove(st);
+    				cs213.remove();
     			}else{
         			outputArea.appendText("The student is not in the list"+"\n");
         			return;
@@ -238,7 +231,7 @@ public class Controller {
     	if(triStateCheck.isSelected()) {
     		Outstate st = new OutState(fname,lname,credits,true);
     		if(cs213.contains(st)) {
-    			cs213.remove(st);
+    			cs213.remove();
     		}else{
     			outputArea.appendText("The student is not in the list"+"\n");
     			return;
@@ -246,7 +239,7 @@ public class Controller {
     	}else {
     			Outstate st = new Outstate(fname,lname,credits,false);
     			if (cs213.contains(st)) {
-    				cs213.remove(st);
+    				cs213.remove();
     			}else{
         			outputArea.appendText("The student is not in the list"+"\n");
         			return;
@@ -264,7 +257,7 @@ public class Controller {
     	if (exchCheck.isSelected()) {
     		International st = new International(fname,lname,credits,true);
     		if(cs213.contains(st)) {
-    			cs213.remove(st);
+    			cs213.remove();
     		}else{
     			outputArea.appendText("The student is not in the list"+"\n");
     			return;
@@ -272,7 +265,7 @@ public class Controller {
     	}else {
     			International st = new International(fname,lname,credits,false);
     			if(cs213.contains(st)) {
-    				cs213.remove(st);
+    				cs213.remove();
     			}else {
     				outputArea.appendText("The student is not in the list"+"\n");
 					return;
@@ -286,11 +279,12 @@ public class Controller {
 
     @FXML
     public void printBtnClicked(){
-    	if(insRdio.isSelected()) {
-    		if(fndCheck.isSelected()) {
-    			outputArea.append(cs213.print());
-    		}
-    	}
+        boolean emptylist = cs213.isEmpty();
+        if (emptylist == true){
+            outputArea.appendText("The list is empty!"+"\n");
+            return;
+        }
+        cs213.print();
     }
 
 }
