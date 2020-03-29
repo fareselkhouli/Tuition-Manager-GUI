@@ -184,94 +184,26 @@ public class Controller {
      * This class Remove a student from the student list.
      */
     @FXML
-    public void removeBtnClicked(){
-    	if(firstNameField.getText().isEmpty() 
-    			|| lastNameField.getText().isEmpty()
-    			|| creditsField.getText()==null
-    			) {
-    		outputArea.appendText("Incomplete Input" + "\n");;
-    		return;
-    	}
-    	String fname = firstNameField.getText();
-    	String lname = lastNameField.getText();
-    	int credits;
-    	String successMessage = "Student successfully removed!\n";
-
-    	if(insRdio.isSelected()) {
-    		if(fndCheck.isSelected()) {
-    			int funding;
-    			funding = Integer.parseInt(fundingField.getText());
-    		}
-    		if(funding < 0) {
-    			outputArea.appendText("Funding must be positive."+"\n");
-    			return;
-    		}
-    		if (funding!=0) {
-    		Instate st = new Instate(fname,lname,credits,funding);
-    		if(cs213.contains(st)) {
-    			cs213.remove();
-    		}else{
-    			outputArea.appendText("The student is not in the list"+"\n");
-    			return;
-    			}
-    		}else {
-    			Instate st = new Instate(fname,lname,credits,0);
-    			if(cs213.contains(st)) {
-    				cs213.remove();
-    			}else{
-        			outputArea.appendText("The student is not in the list"+"\n");
-        			return;
-        		}
-    		}
-    		outputArea.appendText(successMessage);
-    		return;
-    	}
-    	
-    if(outRdio.isSelected()) {
-    	if(triStateCheck.isSelected()) {
-    		Outstate st = new OutState(fname,lname,credits,true);
-    		if(cs213.contains(st)) {
-    			cs213.remove();
-    		}else{
-    			outputArea.appendText("The student is not in the list"+"\n");
-    			return;
-    		}
-    	}else {
-    			Outstate st = new Outstate(fname,lname,credits,false);
-    			if (cs213.contains(st)) {
-    				cs213.remove();
-    			}else{
-        			outputArea.appendText("The student is not in the list"+"\n");
-        			return;
-        		}
-    		}
-    		outputArea.appendText(successMessage);
-    		return;       
-    }
-    
-    if (intRdio.isSelected()) {
-    	if (credits < internationalRequirement) {
-    		outputArea.appendText("International students must have 9 cerdits or more."+"\n");
-    		return;
-    	}
-    	if (exchCheck.isSelected()) {
-    		International st = new International(fname,lname,credits,true);
-    		if(cs213.contains(st)) {
-    			cs213.remove();
-    		}else{
-    			outputArea.appendText("The student is not in the list"+"\n");
-    			return;
-    		}
-    	}else {
-    			International st = new International(fname,lname,credits,false);
-    			if(cs213.contains(st)) {
-    				cs213.remove();
-    			}else {
-    				outputArea.appendText("The student is not in the list"+"\n");
-					return;
-    			}
-    	}
-    		}
+    public void removeBtnClicked() {
+        if (firstNameField.getText().isEmpty()
+                || lastNameField.getText().isEmpty()
+                || creditsField.getText() == null
+        ) {
+            outputArea.appendText("Incomplete Input" + "\n");
+            ;
+            return;
+        }
+        String fname = firstNameField.getText();
+        String lname = lastNameField.getText();
+        String successMessage = "Student successfully removed!\n";
+        Student st = new Instate(fname,lname,1,1);
+        boolean successfullyremoved = cs213.removed(st);
+        if (!successfullyremoved){
+            outputArea.appendText("The student is not in the list."+"\n");
+        } else{
+            outputArea.appendText(successMessage);
+        }
+        outputArea.appendText("Please choose a radio button and try again." + "\n");
     }
     /**
      * This class print out the student list according to what button people choose.
@@ -284,7 +216,9 @@ public class Controller {
             outputArea.appendText("The list is empty!"+"\n");
             return;
         }
-        cs213.print();
+        while(!cs213.isEmpty){
+            outputArea.appendText(students[i].toString() + " tuition due: $" + students[i].tuitionDue()+"\n");
+        }
     }
 
 }
