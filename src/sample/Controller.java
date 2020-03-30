@@ -187,7 +187,6 @@ public class Controller {
     public void removeBtnClicked() {
         if (firstNameField.getText().isEmpty()
                 || lastNameField.getText().isEmpty()
-                || creditsField.getText() == null
         ) {
             outputArea.appendText("Incomplete Input" + "\n");
             ;
@@ -196,19 +195,18 @@ public class Controller {
         String fname = firstNameField.getText();
         String lname = lastNameField.getText();
         String successMessage = "Student successfully removed!\n";
-        Student st = new Instate(fname,lname,1,1);
-        boolean successfullyremoved = cs213.removed(st);
+        Student st = new Instate(fname,lname,1,1); //temporary student to pass to remove method
+        boolean successfullyremoved = cs213.remove(st);
         if (!successfullyremoved){
             outputArea.appendText("The student is not in the list."+"\n");
         } else{
             outputArea.appendText(successMessage);
         }
-        outputArea.appendText("Please choose a radio button and try again." + "\n");
+
     }
     /**
      * This class print out the student list according to what button people choose.
      */
-
     @FXML
     public void printBtnClicked(){
         boolean emptylist = cs213.isEmpty();
@@ -216,9 +214,7 @@ public class Controller {
             outputArea.appendText("The list is empty!"+"\n");
             return;
         }
-        while(!cs213.isEmpty){
-            outputArea.appendText(students[i].toString() + " tuition due: $" + students[i].tuitionDue()+"\n");
-        }
+        outputArea.appendText(cs213.toString());
     }
 
 }
