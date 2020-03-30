@@ -117,4 +117,16 @@ public class StudentList {
             System.out.println(students[i].toString() + " tuition due: $" + students[i].tuitionDue());
         }
     }
+
+    /**
+     * returns a string representation of a StudentList
+     * @return string
+     */
+    public String toString() {
+        String result = "\n";
+        for (int i = 0; i < numStudents; ++i) {
+            result += students[i].toString() + " tuition due: $" + students[i].tuitionDue() + "\n";
+        }
+        return result;
+    }
 }
